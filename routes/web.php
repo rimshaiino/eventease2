@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivewireTestController;
 use League\Flysystem\UrlGeneration\PrefixPublicUrlGenerator;
-
+use App\Http\Controllers\AlpineTestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,3 +35,5 @@ Route::controller(LivewireTestController::class)
     Route::get('index','index')->name('index');
     Route::get('register','register')->name('register');
 });
+
+Route::get('alpine-test/index',[AlpineTestController::class,'index']);
