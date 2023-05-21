@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
+use Illuminate\Support\Facades\DB;
+use View;
+use Carbon\Carbon;
+
 
 class EventController extends Controller
 {
@@ -15,7 +19,13 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $today = Carbon::today();
+        $events = DB::table('events')
+        ->whereDate('start_date' , '>=' , $today)
+        ->orderBy('start_date' , 'asc')
+        ->paginate(10);
+
+        return view('manager.events.index' ,compact('events'));
     }
 
     /**
@@ -25,60 +35,94 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('manager.events.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEventRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StoreEventRequest $request)
     {
-        //
+        $start = $request['event_date'] . " " . $request['start_time'];
+        $startDate = Carbon::createFromFormat(
+            'Y-m-d H:i' , $start
+        );
+
+        $end = $request['event_date'] . " " . $request['end_time'];
+        $endDate = Carbon::createFromFormat(
+            'Y-m-d H:i' , $end
+        );
+
+        Event::create([
+            'name' => $request['event_name'],
+            'information' => $request['information'],
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'max_people' => $request['max_people'],
+            'is_visible' => $request['is_visible'],
+        ]);
+
+        session()->flash('status','登録OK');
+
+        return to_route('events.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
     public function show(Event $event)
     {
-        //
+        $event = Event::findOrFail($event->id);
+        $eventDate = $event->eventDate;
+        $startTime = $event->startTime;
+        $endTime = $event->endTime;
+
+        // dd($eventDate , $startTime , $endTime);
+        return view('manager.events.show' , compact('event' , 'eventDate' , 'startTime' , 'endTime'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Event $event)
     {
-        //
+        $event = Event::findOrFail($event->id);
+        $eventDate = $event->editEventDate;
+        $startTime = $event->startTime;
+        $endTime = $event->endTime;
+
+        return view('manager.events.edit' , compact('event' , 'eventDate' , 'startTime' , 'endTime'));        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateEventRequest  $request
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        $start = $request['event_date'] . " " . $request['start_time'];
+        $startDate = Carbon::createFromFormat(
+            'Y-m-d H:i' , $start
+        );
+
+        $end = $request['event_date'] . " " . $request['end_time'];
+        $endDate = Carbon::createFromFormat(
+            'Y-m-d H:i' , $end
+        );
+
+        $event = Event::findOrFail($event->id);
+        $event->name = $request['event_name'];
+        $event->information = $request['information'];
+        $event->start_date = $startDate;
+        $event->end_date = $endDate;
+        $event->max_people = $request['max_people'];
+        $event->is_visible = $request['is_visible'];
+        $event->save();
+
+        session()->flash('status','更新OK');
+
+        return to_route('events.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
-     */
+    public function past()
+    {
+        $today = Carbon::today();
+        $events = DB::table('events')
+        ->whereDate('start_date' , '<' , $today)
+        ->orderBy('start_date' , 'desc')
+        ->paginate(10);
+
+        return view('manager.events.past' , compact('events'));
+    }
     public function destroy(Event $event)
     {
         //
