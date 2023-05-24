@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css';
+import './flatpickr';
 
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
