@@ -21,6 +21,7 @@
                         @csrf
 
                             <div>
+                                
                                 <x-label for="event_name" value="イベント名" />
                                 <x-input id="event_name" class="block mt-1 w-full" type="text" name="event_name" :value="old('event_name')" required autofocus autocomplete="username" />
                             </div>

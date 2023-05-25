@@ -24,9 +24,8 @@ class EventFactory extends Factory
         $dummyDate = $this->faker->dateTimeThisMonth;
         $startDate = $dummyDate->setTime($availableHour, $minutes[$mKey]);
         $clone = clone $startDate;
-        $endDate = $clone->modify('+' . $addHour .'hour');
+        $endDate = $clone->modify('+'.$addHour .'hour');
 
-        dd($startDate,$endDate);
 
         return [
             'name' => $this->faker->name,
