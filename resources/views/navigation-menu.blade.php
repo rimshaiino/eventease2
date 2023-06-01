@@ -16,14 +16,19 @@
                         イベントカレンダー
                     </x-nav-link>
                     <x-nav-link href="{{ route('mypage.index') }}" :active="request()->routeIs('mypage.index')">
-                        マイページ
+                        予約したイベント
                     </x-nav-link>
                     @can('manager-higher')
                     <x-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
                         イベント管理
                     </x-nav-link>
                     @endcan
-                </div>
+                    {{-- @can('admin-higher')
+                    <x-nav-link href="{{ route('admin.user-list') }}" :active="request()->routeIs('admin.user-list')">
+                        ユーザーリスト
+                    </x-nav-link>
+                    @endcan
+                </div> --}}
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -149,13 +154,18 @@
                 イベントカレンダー
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('mypage.index') }}" :active="request()->routeIs('mypage.index')">
-                マイページ
+                予約したイベント
             </x-responsive-nav-link>
             @can('manager-higher')
             <x-responsive-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
                 イベント管理
             </x-responsive-nav-link>
             @endcan
+            {{-- @can('admin.user-list')
+            <x-responsive-nav-link href="{{ route('admin.user-list') }}" :active="request()->routeIs('admin.user-list')">
+                ユーザーリスト
+            </x-responsive-nav-link>
+            @endcan --}}
         </div>
 
         <!-- Responsive Settings Options -->

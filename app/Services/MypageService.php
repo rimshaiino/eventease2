@@ -20,7 +20,7 @@ Class MyPageService
                         'name' => $event->name,
                         'start_date' => $event->start_date,
                         'end_date' => $event->end_date,
-                        'number_of_people' => $event->number_of_people
+                        'number_of_people' => $event->pivot->number_of_people
                     ];
                     array_push($reservedEvents, $eventInfo);
                 }
@@ -37,7 +37,7 @@ Class MyPageService
                         'name' => $event->name,
                         'start_date' => $event->start_date,
                         'end_date' => $event->end_date,
-                        'number_of_people' => $event->number_of_people
+                        'number_of_people' => $event->pivot->number_of_people
                     ];
                     array_push($reservedEvents, $eventInfo);
                 }

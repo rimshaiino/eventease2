@@ -71,13 +71,13 @@
                             </div>
                             @if ($isReserved === null)
                                 <input type="hidden" name="id" value="{{ $event->id }}">
-                                @if ($reservablePeople <= 0) 
+                                @if ($reservablePeople > 0) 
                                 <x-button class="ml-4">
                                     予約
                                 </x-button>
                                 @endif
                             @else
-                                <span class="">このイベントは予約済みです</span>
+                                <span class="">予約済み</span>
                             @endif
                         </div>
                     </form>

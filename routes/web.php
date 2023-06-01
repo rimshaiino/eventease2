@@ -33,6 +33,17 @@ Route::get('/', function () {
 //     })->name('dashboard');
 // });
 
+
+
+
+// Route::prefix('admin')
+// ->middleware('can:admin-higher')
+// ->group(function(){
+//     Route::get('events/past' , [EventController::class , 'past'])->name('events.past');
+//     Route::resource('events' , EventController::class);
+// });
+
+
 Route::prefix('manager')
 ->middleware('can:manager-higher')
 ->group(function(){
@@ -46,9 +57,13 @@ Route::middleware('can:user-higher')
     Route::get('/dashboard', [ReservationController::class , 'dashboard'])->name('dashboard');
     Route::get('/mypage', [MyPageController::class , 'index'])->name('mypage.index');
     Route::get('/mypage/{id}', [MyPageController::class , 'show'])->name('mypage.show');
-    Route::get('/{id}', [ReservationController::class , 'detail'])->name('events.detail');
-    Route::post('/{id}', [ReservationController::class , 'detail'])->name('events.reserve');
+    Route::post('/mypage/{id}', [MyPageController::class , 'cancel'])->name('mypage.cancel');
+    // Route::get('/{id}', [ReservationController::class , 'detail'])->name('events.detail');
+    Route::post('/{id}', [ReservationController::class , 'reserve'])->name('events.reserve');
 });
+
+Route::middleware('auth')->get('/{id}', [ReservationController::class , 'detail'])->name('events.detail');
+
 
 Route::controller(LivewireTestController::class)
 ->prefix('Livewire-test')->name('livewire-test.')->group(function()

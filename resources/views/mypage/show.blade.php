@@ -48,19 +48,19 @@
                         </div>
                     </div>
                         
-                    <form id='cancel_{{ $event->id }}' method="post" action="{{ route('mypage.cancel' , [ 'event' => $event->id ]) }}">
+                    <form id="cancel_{{ $event->id }}" method="post" action="{{ route('mypage.cancel' ,['id' => $event->id]) }}">
                         @csrf
                         <div class="md:flex justify-between">
                             <div class="mt-4">
-                                <x-label value="予約人数" />
+                                <x-label value="予約人数"/>
                                 {{ $reservation->number_of_people }}
                                 
                             </div>
-                            @if ($event->eventDate <div \Carbon\Carbon::today()->format('Y/m/d') )
+                            {{-- @if($event->eventDate < \Carbon\Carbon::today()->format('Y/m/d')) --}}
                             <a href="#" date-id="{{ $event->id }}" onclick="cancelPost(this)" class="ml-4 bg-black text-white py-2 px-4">
                                 キャンセル
                             </a>
-                            @endif
+                            {{-- @endif --}}
                         </div>
                     </form>
                 </div>

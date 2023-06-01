@@ -20,6 +20,8 @@ class ReservationController extends Controller
 
         $reservedPeople = DB::table('reservations')
         ->select('event_id' , DB::raw('sum(number_of_people) as number_of_people'))
+        ->whereNull('canceled_date')
+
         ->groupBy('event_id')
         ->having('event_id',$event->id)
         ->first();
@@ -45,16 +47,17 @@ class ReservationController extends Controller
 
         $reservedPeople = DB::table('reservations')
         ->select('event_id' , DB::raw('sum(number_of_people) as number_of_people'))
+        ->whereNull('canceled_date')
         ->groupBy('event_id')
         ->having('event_id',$event->id)
         ->first();
 
-        if(!is_null($reservedPeople) || $event->max_people >= $reservedPeople->number_of_people + $request->$reservedPeople)
+        if(is_null($reservedPeople) || $event->max_people >= $reservedPeople->number_of_people + $request->$reservedPeople)
         {
             Reservation::create([
-                'name' => Auth::id(),
-                'information' => $request['id'],
-                'start_date' => $request['reserved_people'],
+                'user_id' => Auth::id(),
+                'event_id' => $request['id'],
+                'number_of_people' => $request['reserved_people'],
             ]);
     
             session()->flash('status','登録OK');
