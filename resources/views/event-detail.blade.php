@@ -1,66 +1,84 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            イベント編集
+            イベント内容
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="pt-4 pb-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="max-w-2xl  py-4 mx-auto">
                     <x-validation-errors class="mb-4" />
 
                     @if (session('status'))
-                        <div class="mb-4 font-medium text-sm text-purple-400">
+                        <div class="mb-4 font-medium text-sm text-purple-300">
                             {{ session('status') }}
                         </div>
                     @endif
                     
-                    <form method="POST" action="{{ route('events.update' , [ 'event' => $event->id ]) }}">
-                        @csrf
-                        @method('put')
-
+                    <form method="post" action="{{ route('events.reserve' , ['id' => $event->id]) }}">
+                            @csrf
                             <div>
                                 <x-label for="event_name" value="イベント名" />
-                                <x-input id="event_name" class="block mt-1 w-full" type="text" name="event_name" value="{{ $event->name }}" required autofocus autocomplete="username" />
+                                {{ $event->name }}
                             </div>
 
                             <div class="mt-4">
                                 <x-label for="information" value="イベント詳細" />
-                                <x-textarea row="3" id="information" name="information" class="block mt-1 w-full">{{ $event->information }}</x-textarea>
+                                {!! nl2br(e($event->information)) !!}
+
                             </div>
 
                         <div class="md:flex justify-between">
                         
                             <div class="mt-4">
                                 <x-label for="event_date" value="イベント日付" />
-                                <x-input id="event_date" class="block mt-1 w-full" type="text" name="event_date" value="{{ $eventDate }}" required/>
+                                {{ $event->eventDate }}
                             </div>
 
                             <div class="mt-4">
                                 <x-label for="start_time" value="開始時間" />
-                                <x-input id="start_time" class="block mt-1 w-full" type="text" name="start_time" value="{{ $startTime }}" required/>
+                                {{ $event->startTime }}
+
                             </div>
 
                             <div class="mt-4">
                                 <x-label for="end_time" value="終了時間" />
-                                <x-input id="end_time" class="block mt-1 w-full" type="text" name="end_time" value="{{ $endTime }}" required/>
+                                {{ $event->endTime }}
+
                             </div>
                         </div>
 
                         <div class="md:flex justify-between">
                             <div class="mt-4">
                                 <x-label for="max_people" value="定員数" />
-                                <x-input id="max_people" class="block mt-1 w-full" type="number" name="max_people" value="{{ $event->max_people }}" required/>
+                                {{ $event->max_people }}
+
                             </div>
-                            <div class="flex space-x-4 justify-around">
-                                <input type="radio" name="is_visible" value="1" @if($event->is_visible === 1){ checked } @endif/>表示
-                                <input type="radio" name="is_visible" value="0" @if($event->is_visible === 0){ checked } @endif/>非表示
+                            <div class="mt-4">
+                                @if ($reservablePeople <= 0) 
+                                <span class="text-red-300">満員</span>
+                                @else
+                                <x-label for="reserved_people" value="予約人数" />
+                                <select name="reserved_people" id="">
+                                    @for ($i = 1; $i <= $reservablePeople; $i++)
+                                    <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                </select>
+                                @endif
+
                             </div>
-                            <x-button class="ml-4  px-5 py-2.5 font-medium bg-purple-300 hover:bg-purple-100 hover:text-purple-600 text-purple-500 rounded-lg text-sm">
-                                更新
-                            </x-button>
+                            @if ($isReserved === null)
+                                <input type="hidden" name="id" value="{{ $event->id }}">
+                                @if ($reservablePeople > 0) 
+                                <x-button class="ml-4">
+                                    予約
+                                </x-button>
+                                @endif
+                            @else
+                                <span class="">予約済み</span>
+                            @endif
                         </div>
                     </form>
                 </div>

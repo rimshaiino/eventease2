@@ -13,13 +13,21 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        イベントカレンダー
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('mypage.index') }}" :active="request()->routeIs('mypage.index')">
+                        予約したイベント
                     </x-nav-link>
                     @can('manager-higher')
                     <x-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
                         イベント管理
                     </x-nav-link>
                     @endcan
+                    {{-- @can('admin-higher')
+                    <x-nav-link href="{{ route('admin.user-list') }}" :active="request()->routeIs('admin.user-list')">
+                        ユーザーリスト
+                    </x-nav-link>
+                    @endcan --}}
                 </div>
             </div>
 
@@ -143,13 +151,21 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                イベントカレンダー
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('mypage.index') }}" :active="request()->routeIs('mypage.index')">
+                予約したイベント
             </x-responsive-nav-link>
             @can('manager-higher')
             <x-responsive-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
                 イベント管理
             </x-responsive-nav-link>
             @endcan
+            {{-- @can('admin.user-list')
+            <x-responsive-nav-link href="{{ route('admin.user-list') }}" :active="request()->routeIs('admin.user-list')">
+                ユーザーリスト
+            </x-responsive-nav-link>
+            @endcan --}}
         </div>
 
         <!-- Responsive Settings Options -->

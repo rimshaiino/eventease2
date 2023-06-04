@@ -64,7 +64,7 @@
                                 @endif
                             </div>
                             @if ($event->eventDate >= \Carbon\Carbon::today()->format('Y/m/d') )
-                            <x-button class="ml-4">
+                            <x-button class="ml-4  px-5 py-2.5 font-medium bg-purple-300 hover:bg-purple-100 hover:text-purple-600 text-purple-500 rounded-lg text-sm">
                                 編集
                             </x-button>
                             @endif
