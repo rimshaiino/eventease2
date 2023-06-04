@@ -58,7 +58,7 @@
                                 <input type="radio" name="is_visible" value="1" @if($event->is_visible === 1){ checked } @endif/>表示
                                 <input type="radio" name="is_visible" value="0" @if($event->is_visible === 0){ checked } @endif/>非表示
                             </div>
-                            <x-button class="ml-4">
+                            <x-button class="ml-4  px-5 py-2.5 font-medium bg-purple-300 hover:bg-purple-100 hover:text-purple-600 text-purple-500 rounded-lg text-sm">
                                 更新
                             </x-button>
                         </div>

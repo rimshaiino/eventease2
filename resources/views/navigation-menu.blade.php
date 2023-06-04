@@ -27,8 +27,8 @@
                     <x-nav-link href="{{ route('admin.user-list') }}" :active="request()->routeIs('admin.user-list')">
                         ユーザーリスト
                     </x-nav-link>
-                    @endcan
-                </div> --}}
+                    @endcan --}}
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
