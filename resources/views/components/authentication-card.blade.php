@@ -1,5 +1,5 @@
-<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-    <div class="w-32 rounded-full">
+<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 login-bg">
+    <div class="w-40 rounded-full">
         <x-authentication-card-logo />
     </div>
 

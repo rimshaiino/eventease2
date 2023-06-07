@@ -1,9 +1,9 @@
 <x-calendar-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight italic">
-            Event List
+    {{-- <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            イベントカレンダー
         </h2>
-    </x-slot>
+    </x-slot> --}}
 
     <div class="py-4">
         <div class="event_calendar mx-auto sm:px-6 lg:px-8">

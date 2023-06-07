@@ -1,4 +1,5 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 login-bg">
+    
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -9,18 +10,21 @@
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
+                {{-- <p class="text-white text-4xl font-bold mt-2 ml-4">
+                    Event Ease
+                </p> --}}
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        イベントカレンダー
+                    <x-nav-link class="text-gray-200" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        カレンダー
                     </x-nav-link>
                     <x-nav-link href="{{ route('mypage.index') }}" :active="request()->routeIs('mypage.index')">
-                        予約したイベント
+                        予約済み
                     </x-nav-link>
                     @can('manager-higher')
                     <x-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
-                        イベント管理
+                        管理
                     </x-nav-link>
                     @endcan
                     {{-- @can('admin-higher')
